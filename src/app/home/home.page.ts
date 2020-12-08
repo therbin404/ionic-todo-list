@@ -12,7 +12,7 @@ export class HomePage {
   constructor(public alertController: AlertController, public toastController: ToastController) {}
   
   tasks = []; // Array to store all tasks
-  sentence = '';
+  sentence = 'Aucune tâche encore ajoutée';
   caseInformation = 0;
 
   /********* Toasts ************/
