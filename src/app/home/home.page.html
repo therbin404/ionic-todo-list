@@ -12,10 +12,13 @@
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-item *ngFor="let task of tasks">
+  <div *ngFor="let task of tasks">
+  <ion-item>
     <ion-checkbox></ion-checkbox>
     {{ task.todo }}
   </ion-item>
+  <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
+  </div>
   
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

@@ -21,6 +21,22 @@ export class HomePage {
     toast.present();
   }
 
+  async taskRemoved(removed, index = null) {
+    if (removed) {
+      const toast = await this.toastController.create({
+        message: 'La tâche '+ this.tasks[index].todo +'a bien été supprimée',
+        duration: 3000
+      });
+      toast.present();
+    } else {
+      const toast = await this.toastController.create({
+        message: 'La tâche n\'a pas été supprimée',
+        duration: 3000
+      });
+      toast.present();
+    }
+  }
+
   async addTask() {
     const alert = await this.alertController.create({
       header: 'Ajouter une nouvelle tâche',
@@ -37,13 +53,38 @@ export class HomePage {
           handler: data => {
             this.taskAdded();
             this.tasks.push(data);
-            console.log(this.tasks);
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+  async removeTask(task) {
+    var index = this.tasks.findIndex(p => p.todo == task); // Sert à retourner l'index de la tâche recherchée
+
+    const alert = await this.alertController.create({
+      header: 'Voulez-vous vraiment supprimer la tâche suivante: '+ this.tasks[index].todo +' ?',
+      buttons: [
+        {
+          text: 'Oui',
+          handler: () => {
+            this.taskRemoved(true, index);
+            this.tasks.splice(index, 1);
+          }
+        },
+        {
+          text: 'Non',
+          handler: () => {
+            this.taskRemoved(false);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  
   }
 
 }
