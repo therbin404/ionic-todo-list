@@ -12,9 +12,8 @@
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div>{{ sentence }}</div>
+  <ion-item color="primary">{{ sentence }}</ion-item>
   <h2>Tâches</h2>
-  <ion-list>
     <ion-item *ngFor="let task of tasks">
       <ion-checkbox (click)="checkTask(task.todo)" *ngIf="task.completed == 0"></ion-checkbox>
       <ion-checkbox (click)="checkTask(task.todo)" checked disabled *ngIf="task.completed == 1"></ion-checkbox>
@@ -23,7 +22,6 @@
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
     </ion-item>
-  </ion-list>
 
   
 
