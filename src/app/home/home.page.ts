@@ -40,11 +40,6 @@ export class HomePage {
   }
 /**************End toasts ********** */
 
-/*
--0 taches a faire et des taches faites: Bravo vert et gras
--Des taches a faire et des taches faites: Phrase dynamique "Vous avez fait X et il vous reste Y"
--X taches a faire, et 0 taches faites -> Feignasse, bouge-toi le cul ! en gras, rouge, capitales
- */
 
   async statement() { //A MODIFIER (faire un for, compter le nombre de completed == 1, le nombre de completed == 0, et reprendre les conditions avec ces données)
     let doneTasks = 0;
@@ -128,6 +123,11 @@ export class HomePage {
     
     this.tasks[index].completed = 1;
     this.statement();
+    this.tasks.sort(function(a, b){
+      if(a.completed < b.completed) return -1;
+      if(a.completed == b.completed) return 0;
+      if(a.completed > b.completed) return 1;
+    });
   }
 
 }

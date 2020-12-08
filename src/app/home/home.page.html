@@ -15,18 +15,9 @@
   <div>{{ sentence }}</div>
   <h2>Tâches</h2>
   <div *ngFor="let task of tasks">
-    <div  *ngIf="task.completed == 0">
-      <ion-checkbox (click)="checkTask(task.todo)"></ion-checkbox>
-      {{ task.todo }}
-      <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
-    </div>
-  </div>
-  <div *ngFor="let task of tasks">
-    <div  *ngIf="task.completed == 1">
-      <ion-checkbox (click)="checkTask(task.todo)" checked disabled></ion-checkbox>
-      {{ task.todo }}
-      <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
-    </div>
+    <ion-checkbox (click)="checkTask(task.todo)"></ion-checkbox>
+    {{ task.todo }}
+    <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
   </div>
 
   
