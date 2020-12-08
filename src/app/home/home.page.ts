@@ -13,6 +13,7 @@ export class HomePage {
   
   tasks = []; // Array to store all tasks
   sentence = '';
+  caseInformation = 0;
 
   /********* Toasts ************/
   async taskAdded() { 
@@ -54,13 +55,17 @@ export class HomePage {
 
 
       if(undoneTasks == 0 && doneTasks > 0) {
-        this.sentence = 'Bravo ! Vous avez terminé toutes vos tâches !'
+        this.sentence = 'Bravo ! Vous avez terminé toutes vos tâches !';
+        this.caseInformation = 1;
       } else if (undoneTasks > 0 && doneTasks > 0) {
-        this.sentence = 'Vous avez fait '+ doneTasks +' tâche, et il vous en reste '+ undoneTasks +' à faire !'
+        this.sentence = 'Vous avez fait '+ doneTasks +' tâche, et il vous en reste '+ undoneTasks +' à faire !';
+        this.caseInformation = 2;
       } else if (undoneTasks > 0 && doneTasks == 0) {
-        this.sentence = 'Feignasse, bouge-toi le cul !'
+        this.sentence = 'Feignasse, bouge-toi le cul !';
+        this.caseInformation = 3;
       } else {
-        this.sentence = 'Aucune tâche en cours ni terminée'
+        this.sentence = 'Aucune tâche en cours ni terminée';
+        this.caseInformation = 0;
       }
     }
     this.tasks.sort(function(a, b){
@@ -68,6 +73,18 @@ export class HomePage {
       if(a.completed == b.completed) return 0;
       if(a.completed > b.completed) return 1;
     });
+  }
+
+  colorInformation() {
+    if (this.caseInformation == 0) {
+      return 'primary';
+    } else if (this.caseInformation == 1) {
+      return 'success';
+    } else if (this.caseInformation == 2) {
+      return 'warning';
+    } else if (this.caseInformation == 3) {
+      return 'danger';
+    }
   }
 
   async addTask() {
@@ -128,8 +145,8 @@ export class HomePage {
     
     this.tasks[index].completed = 1;
     this.statement();
-    this.tasks.sort(function(a, b){
-      if(a.completed < b.completed) return -1;
+    this.tasks.sort(function(a, b){ // Les return sont pour classer le tableau. Avec le sort, les -1 seront forcément au début, et les 1 a la fin
+      if(a.completed < b.completed) return -1; 
       if(a.completed == b.completed) return 0;
       if(a.completed > b.completed) return 1;
     });
