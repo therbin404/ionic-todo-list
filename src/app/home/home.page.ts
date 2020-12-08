@@ -11,6 +11,8 @@ export class HomePage {
 
   constructor(public alertController: AlertController, public toastController: ToastController) {}
   
+  tasks = []; // Array to store all tasks
+
   async taskAdded() {
     const toast = await this.toastController.create({
       message: 'La tâche a bien été ajoutée',
@@ -34,6 +36,8 @@ export class HomePage {
           text: 'Ajouter',
           handler: data => {
             this.taskAdded();
+            this.tasks.push(data);
+            console.log(this.tasks);
           }
         }
       ]

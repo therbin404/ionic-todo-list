@@ -12,6 +12,11 @@
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-item *ngFor="let task of tasks">
+    <ion-checkbox></ion-checkbox>
+    {{ task.todo }}
+  </ion-item>
+  
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
