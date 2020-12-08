@@ -12,7 +12,7 @@ export class HomePage {
   constructor(public alertController: AlertController, public toastController: ToastController) {}
   
   tasks = []; // Array to store all tasks
-  completedTasks = [];
+  sentence = '';
 
   /********* Toasts ************/
   async taskAdded() { 
@@ -46,15 +46,27 @@ export class HomePage {
 -X taches a faire, et 0 taches faites -> Feignasse, bouge-toi le cul ! en gras, rouge, capitales
  */
 
-  async statement() {
-    if (this.tasks.length == 0 && this.completedTasks.length > 0) {
-      document.querySelector('#statement').innerHTML = 'Bravo ! Vous avez terminé toutes vos tâches !';
-    }
-    else if (this.tasks.length > 0 && this.completedTasks.length == 0) {
-      document.querySelector('#statement').innerHTML = 'Bouge toi le cul !';
-    }
-    else if (this.tasks.length != 0 && this.completedTasks.length != 0) {
-      document.querySelector('#statement').innerHTML = 'Vous avez fait '+ this.completedTasks.length +' tâches, et il vous reste '+ this.tasks.length +' tâches à faire !';
+  async statement() { //A MODIFIER (faire un for, compter le nombre de completed == 1, le nombre de completed == 0, et reprendre les conditions avec ces données)
+    let doneTasks = 0;
+    let undoneTasks = 0;
+
+    for (let task of this.tasks) {
+      if (task.completed == 1) {
+        doneTasks++;
+      } else {
+        undoneTasks ++;
+      }
+
+
+      if(undoneTasks == 0 && doneTasks > 0) {
+        this.sentence = 'Bravo ! Vous avez terminé toutes vos tâches !'
+      } else if (undoneTasks > 0 && doneTasks > 0) {
+        this.sentence = 'Vous avez fait '+ doneTasks +' tâche, et il vous en reste '+ undoneTasks +' à faire !'
+      } else if (undoneTasks > 0 && doneTasks == 0) {
+        this.sentence = 'Feignasse, bouge-toi le cul !'
+      } else {
+        this.sentence = 'Aucune tâche en cours ni terminée'
+      }
     }
   }
 
@@ -72,6 +84,7 @@ export class HomePage {
         {
           text: 'Ajouter',
           handler: data => {
+            data.completed = 0;
             this.taskAdded();
             this.tasks.push(data);
             this.statement();
@@ -113,8 +126,7 @@ export class HomePage {
   async checkTask(task) {
     let index = this.tasks.findIndex(p => p.todo == task); // Sert à retourner l'index de la tâche recherchée
     
-    this.completedTasks.push(task);
-    this.tasks.splice(index, 1);
+    this.tasks[index].completed = 1;
     this.statement();
   }
 

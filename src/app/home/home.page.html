@@ -12,18 +12,23 @@
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div id="statement"></div>
-  <h2>Tâches à faire</h2>
+  <div>{{ sentence }}</div>
+  <h2>Tâches</h2>
   <div *ngFor="let task of tasks">
-    <ion-checkbox (click)="checkTask(task.todo)"></ion-checkbox>
-    {{ task.todo }}
-    <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
+    <div  *ngIf="task.completed == 0">
+      <ion-checkbox (click)="checkTask(task.todo)"></ion-checkbox>
+      {{ task.todo }}
+      <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
+    </div>
   </div>
-  <h2>Tâches terminées</h2>
-  <div *ngFor="let completedTask of completedTasks">
-    <ion-checkbox checked disabled></ion-checkbox>
-    {{ completedTask }}
+  <div *ngFor="let task of tasks">
+    <div  *ngIf="task.completed == 1">
+      <ion-checkbox (click)="checkTask(task.todo)" checked disabled></ion-checkbox>
+      {{ task.todo }}
+      <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
+    </div>
   </div>
+
   
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
