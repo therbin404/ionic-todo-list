@@ -40,6 +40,23 @@ export class HomePage {
   }
 /**************End toasts ********** */
 
+/*
+-0 taches a faire et des taches faites: Bravo vert et gras
+-Des taches a faire et des taches faites: Phrase dynamique "Vous avez fait X et il vous reste Y"
+-X taches a faire, et 0 taches faites -> Feignasse, bouge-toi le cul ! en gras, rouge, capitales
+ */
+
+  async statement() {
+    if (this.tasks.length == 0 && this.completedTasks.length > 0) {
+      document.querySelector('#statement').innerHTML = 'Bravo ! Vous avez terminé toutes vos tâches !';
+    }
+    else if (this.tasks.length > 0 && this.completedTasks.length == 0) {
+      document.querySelector('#statement').innerHTML = 'Bouge toi le cul !';
+    }
+    else if (this.tasks.length != 0 && this.completedTasks.length != 0) {
+      document.querySelector('#statement').innerHTML = 'Vous avez fait '+ this.completedTasks.length +' tâches, et il vous reste '+ this.tasks.length +' tâches à faire !';
+    }
+  }
 
   async addTask() {
     const alert = await this.alertController.create({
@@ -57,6 +74,7 @@ export class HomePage {
           handler: data => {
             this.taskAdded();
             this.tasks.push(data);
+            this.statement();
           }
         }
       ]
@@ -76,6 +94,7 @@ export class HomePage {
           handler: () => {
             this.taskRemoved(true, index);
             this.tasks.splice(index, 1);
+            this.statement();
           }
         },
         {
@@ -96,8 +115,7 @@ export class HomePage {
     
     this.completedTasks.push(task);
     this.tasks.splice(index, 1);
-  
-    console.log(this.completedTasks);
+    this.statement();
   }
 
 }

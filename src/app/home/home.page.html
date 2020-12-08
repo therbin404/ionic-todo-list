@@ -12,6 +12,7 @@
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div id="statement"></div>
   <h2>Tâches à faire</h2>
   <div *ngFor="let task of tasks">
     <ion-checkbox (click)="checkTask(task.todo)"></ion-checkbox>
@@ -20,7 +21,7 @@
   </div>
   <h2>Tâches terminées</h2>
   <div *ngFor="let completedTask of completedTasks">
-    <ion-checkbox checked></ion-checkbox>
+    <ion-checkbox checked disabled></ion-checkbox>
     {{ completedTask }}
   </div>
   
