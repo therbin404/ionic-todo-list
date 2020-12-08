@@ -14,11 +14,16 @@
   </ion-header>
   <div>{{ sentence }}</div>
   <h2>Tâches</h2>
-  <div *ngFor="let task of tasks">
-    <ion-checkbox (click)="checkTask(task.todo)"></ion-checkbox>
-    {{ task.todo }}
-    <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
-  </div>
+  <ion-list>
+    <ion-item *ngFor="let task of tasks">
+      <ion-checkbox (click)="checkTask(task.todo)" *ngIf="task.completed == 0"></ion-checkbox>
+      <ion-checkbox (click)="checkTask(task.todo)" checked disabled *ngIf="task.completed == 1"></ion-checkbox>
+      <ion-label>{{ task.todo }}</ion-label>
+      <ion-button (click)="removeTask(task.todo)" *ngIf="task.completed == 0">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 
   
 

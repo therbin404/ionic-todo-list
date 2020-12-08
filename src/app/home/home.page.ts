@@ -63,6 +63,11 @@ export class HomePage {
         this.sentence = 'Aucune tâche en cours ni terminée'
       }
     }
+    this.tasks.sort(function(a, b){
+      if(a.completed < b.completed) return -1;
+      if(a.completed == b.completed) return 0;
+      if(a.completed > b.completed) return 1;
+    });
   }
 
   async addTask() {
