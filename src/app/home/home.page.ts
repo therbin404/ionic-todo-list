@@ -12,8 +12,10 @@ export class HomePage {
   constructor(public alertController: AlertController, public toastController: ToastController) {}
   
   tasks = []; // Array to store all tasks
+  completedTasks = [];
 
-  async taskAdded() {
+  /********* Toasts ************/
+  async taskAdded() { 
     const toast = await this.toastController.create({
       message: 'La tâche a bien été ajoutée',
       duration: 3000
@@ -24,7 +26,7 @@ export class HomePage {
   async taskRemoved(removed, index = null) {
     if (removed) {
       const toast = await this.toastController.create({
-        message: 'La tâche '+ this.tasks[index].todo +'a bien été supprimée',
+        message: 'La tâche "'+ this.tasks[index].todo +'"a bien été supprimée',
         duration: 3000
       });
       toast.present();
@@ -36,6 +38,8 @@ export class HomePage {
       toast.present();
     }
   }
+/**************End toasts ********** */
+
 
   async addTask() {
     const alert = await this.alertController.create({
@@ -62,10 +66,10 @@ export class HomePage {
   }
 
   async removeTask(task) {
-    var index = this.tasks.findIndex(p => p.todo == task); // Sert à retourner l'index de la tâche recherchée
+    let index = this.tasks.findIndex(p => p.todo == task); // Sert à retourner l'index de la tâche recherchée
 
     const alert = await this.alertController.create({
-      header: 'Voulez-vous vraiment supprimer la tâche suivante: '+ this.tasks[index].todo +' ?',
+      header: 'Voulez-vous vraiment supprimer la tâche suivante: "'+ this.tasks[index].todo +'" ?',
       buttons: [
         {
           text: 'Oui',
@@ -85,6 +89,15 @@ export class HomePage {
 
     await alert.present();
   
+  }
+
+  async checkTask(task) {
+    let index = this.tasks.findIndex(p => p.todo == task); // Sert à retourner l'index de la tâche recherchée
+    
+    this.completedTasks.push(task);
+    this.tasks.splice(index, 1);
+  
+    console.log(this.completedTasks);
   }
 
 }

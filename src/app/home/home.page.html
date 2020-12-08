@@ -12,12 +12,16 @@
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>
+  <h2>Tâches à faire</h2>
   <div *ngFor="let task of tasks">
-  <ion-item>
-    <ion-checkbox></ion-checkbox>
+    <ion-checkbox (click)="checkTask(task.todo)"></ion-checkbox>
     {{ task.todo }}
-  </ion-item>
-  <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
+    <ion-icon name="trash-outline" (click)="removeTask(task.todo)"></ion-icon>
+  </div>
+  <h2>Tâches terminées</h2>
+  <div *ngFor="let completedTask of completedTasks">
+    <ion-checkbox checked></ion-checkbox>
+    {{ completedTask }}
   </div>
   
 
