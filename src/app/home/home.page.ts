@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,37 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(public alertController: AlertController, public toastController: ToastController) {}
+  
+  async taskAdded() {
+    const toast = await this.toastController.create({
+      message: 'La tâche a bien été ajoutée',
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  async addTask() {
+    const alert = await this.alertController.create({
+      header: 'Ajouter une nouvelle tâche',
+      inputs: [
+        {
+          name: 'todo',
+          placeholder: 'Que devrez-vous faire ?',
+          type: 'text',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Ajouter',
+          handler: data => {
+            this.taskAdded();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
 }
